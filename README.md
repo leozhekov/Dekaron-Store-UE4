@@ -1,1 +1,16 @@
-# Dekaron-Store-UE4
+# Dekaron-Store-UE4  
+  
+This is an Unreal Engine 4.20 project with assets from my [Dekaron-Store-3D-scene](https://github.com/leozhekov/Dekaron-Store-3D-scene) Blender project.  
+It is an interactive approach to the scene.  
+Functionality implemented:  
+* Pick up of weapons
+* Inspecting picked weapon
+* Dropping a picked weapon
+* Leaving it back on the same place (or any other [for now] place of a weapon)
+
+Usage: 
+> Clone and build VS project files (vs 2017)  
+> When playing the game, approach any weapon and press **E** to pick it up, **F** to drop it **Right click holding down and moving the mouse** to rotate it. If you are within range of a placeholder for the weapon, the *Drop* will be changed to *Leave* which leaves the weapon to the spot of the handle the crosshair is pointing to (hidden ingame). 
+
+> Note 1: Materials may differ. I have yet to learn how to implement better UE4 materials for wood, metal, floor, stone, emmision materials and the runes on the walls of the enchanter room.  
+> Note 2: UI elements for *Pick up, Drop, Leave, Inspect* will be replaced with visuals for keys and an explanation will be given before the *exploration of the shop (scene)* is started. 
