@@ -89,6 +89,7 @@ const FHitResult UGrabber::GetObjectInReach()
 	FHitResult HitResult;
 	if (ItemIsPicked)
 	{
+		
 		GetWorld()->LineTraceSingleByObjectType(HitResult, GetReachLineStart(), GetReachLineEnd(), FCollisionObjectQueryParams(ECollisionChannel::ECC_GameTraceChannel2), QueryParams);
 	}
 	else 
