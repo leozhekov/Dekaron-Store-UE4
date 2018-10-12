@@ -1,7 +1,7 @@
 # Dekaron-Store-UE4  
   
 This is an Unreal Engine 4.20 project with assets from my [Dekaron-Store-3D-scene](https://github.com/leozhekov/Dekaron-Store-3D-scene) Blender project.  
-It is an interactive approach to the scene.[Demo here](https://www.youtube.com/watch?v=t8DX7w0pkno)  
+It is an interactive approach to the scene. [Demo here](https://www.youtube.com/watch?v=t8DX7w0pkno)  
 Functionality implemented:  
 * Pick up of weapons
 * Inspecting picked weapon
