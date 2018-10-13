@@ -6,7 +6,8 @@
 #include "Components/InputComponent.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
-
+#include "Weapon.h"
+#include "Shelf.h"
 // Sets default values for this component's properties
 UGrabber::UGrabber()
 {
@@ -27,7 +28,7 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	if (ItemIsPicked) 
 	{
-		PhysicsHandle->SetTargetLocation(GetReachLineEnd());
+		PhysicsHandle->SetTargetLocation(GetLineEndForInspect());
 		FRotator TargetRotation = PhysicsHandle->GetGrabbedComponent()->GetOwner()->GetActorRotation();
 		PhysicsHandle->SetTargetRotation(TargetRotation);
 		
@@ -43,32 +44,37 @@ void UGrabber::Grab()
 	{
 		PhysicsHandle->GrabComponent(Component, NAME_None, Component->GetOwner()->GetActorLocation(), true);
 		ItemIsPicked = true;
+		Weapon = (AWeapon*)Component->GetOwner();
+		Shelf = Weapon->GetShelf();
 	}
 }
 
 void UGrabber::Release() 
 {
-	if (ItemIsPicked) 
+	if (ItemIsPicked)
 	{ 
 		FHitResult HitResult = GetObjectInReach();
 		AActor* ActorHit = HitResult.GetActor();
 		if (ActorHit)
 		{	
-			FVector ItemReleaseLocation = ActorHit->GetActorLocation() + FVector(0, 0, 30);
-			FRotator ItemReleaseRotation = ActorHit->GetActorRotation();
-			UPrimitiveComponent* GrabbedComponent = PhysicsHandle->GetGrabbedComponent();
-			GrabbedComponent->GetOwner()->SetActorLocation(ItemReleaseLocation);
-			GrabbedComponent->GetOwner()->SetActorRotation(ItemReleaseRotation);
-			PhysicsHandle->ReleaseComponent();
-
+			AShelf* ShelfHit = (AShelf*) ActorHit;
+			if (ShelfHit->GetName() == Shelf->GetName())
+			{
+				FVector ItemReleaseLocation = Weapon->GetStartupLocation() + DropOffset;
+				FRotator ItemReleaseRotation = Weapon->GetStartupRotation();
+				UPrimitiveComponent* GrabbedComponent = PhysicsHandle->GetGrabbedComponent();
+				GrabbedComponent->GetOwner()->SetActorLocation(ItemReleaseLocation);
+				GrabbedComponent->GetOwner()->SetActorRotation(ItemReleaseRotation);
+				PhysicsHandle->ReleaseComponent();
+				ItemIsPicked = false;
+			}
 		}
 		else
 		{
 			PhysicsHandle->ReleaseComponent();
+			ItemIsPicked = false;
 		}
-		ItemIsPicked = false;
 	}
-	
 }
 
 
@@ -89,11 +95,12 @@ const FHitResult UGrabber::GetObjectInReach()
 	FHitResult HitResult;
 	if (ItemIsPicked)
 	{
-		
+		// Line-tracing for a shelf object - Collision preset "Shelf"
 		GetWorld()->LineTraceSingleByObjectType(HitResult, GetReachLineStart(), GetReachLineEnd(), FCollisionObjectQueryParams(ECollisionChannel::ECC_GameTraceChannel2), QueryParams);
 	}
 	else 
 	{
+		//Line-tracing for a pickup object- Collision preset "Pick Up"
 		GetWorld()->LineTraceSingleByObjectType(HitResult, GetReachLineStart(), GetReachLineEnd(), FCollisionObjectQueryParams(ECollisionChannel::ECC_GameTraceChannel1), QueryParams);
 	}
 
@@ -117,7 +124,16 @@ FVector UGrabber::GetReachLineEnd()
 	return Location + (Rotation.Vector() * Reach);
 }
 
+// Used in Character Blueprint to get the actor of the picked object.
 AActor* UGrabber::GetPickedActor()
 {
 	return PhysicsHandle->GetGrabbedComponent()->GetOwner();
+}
+
+FVector UGrabber::GetLineEndForInspect()
+{
+	FVector Location;
+	FRotator Rotation;
+	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(Location, Rotation);
+	return Location + (Rotation.Vector() * (Reach * 0.7));
 }

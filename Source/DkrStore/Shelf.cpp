@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Weapon.h"
 #include "Shelf.h"
+#include "Weapon.h"
 
 // Sets default values
-AWeapon::AWeapon()
+AShelf::AShelf()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,22 +12,19 @@ AWeapon::AWeapon()
 }
 
 // Called when the game starts or when spawned
-void AWeapon::BeginPlay()
+void AShelf::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!Shelf) 
+	if (!Weapon) 
 	{ 
-		UE_LOG(LogTemp, Warning, TEXT("Testing %s is not attached to anything"), *(GetName()))
+		UE_LOG(LogTemp, Warning, TEXT("Testing %s has nothing attatched"), *(GetName()))
 		return; 
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Testing %s is attached to %s"), *(GetName()), *(Shelf->GetName()))
-
-	StartupLocation = GetActorLocation();
-	StartupRotation = GetActorRotation();
+	UE_LOG(LogTemp, Warning, TEXT("Testing %s has attached %s"), *(GetName()), *(Weapon->GetName()))
 }
 
 // Called every frame
-void AWeapon::Tick(float DeltaTime)
+void AShelf::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

@@ -12,7 +12,7 @@
 #include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "Grabber.h"
 #include "HUDControlComponent.h"
-
+#include "Shelf.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -61,6 +61,8 @@ void ADkrStoreCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 
 
 }
+
+// All ray-tracing is done for setting up the HUD messages that appear. 
 void ADkrStoreCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -129,7 +131,8 @@ bool ADkrStoreCharacter::CheckForShelf()
 	FHitResult HitResult = LineTraceByChannel(2);
 	
 	AActor* ActorHit = HitResult.GetActor();
-	if (ActorHit)
+	AShelf* Shelf = Grabber->GetShelf();
+	if (ActorHit && ActorHit->GetName() == Shelf->GetName())
 	{
 		return true;
 	}

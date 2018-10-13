@@ -6,6 +6,8 @@
 #include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
 
+class AWeapon;
+class AShelf;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DKRSTORE_API UGrabber : public UActorComponent
@@ -22,6 +24,9 @@ public:
 	bool IsItemPicked();
 	void SetReach(float Reach);
 	AActor* GetPickedActor();
+	AShelf* GetShelf() { return Shelf; }
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
+	FVector DropOffset = FVector(0,0,0);
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -36,7 +41,9 @@ private:
 
 	FVector GetReachLineStart();
 	FVector GetReachLineEnd();
+	FVector GetLineEndForInspect();
 	bool ItemIsPicked = false;
 
-
+	AShelf* Shelf = nullptr;
+	AWeapon* Weapon = nullptr;
 };

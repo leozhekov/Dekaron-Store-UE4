@@ -7,7 +7,7 @@
 #include "DkrStoreCharacter.generated.h"
 
 class UInputComponent;
-
+class Shelf;
 UCLASS(config=Game)
 class ADkrStoreCharacter : public ACharacter
 {

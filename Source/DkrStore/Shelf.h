@@ -4,38 +4,32 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Weapon.generated.h"
+#include "Shelf.generated.h"
+
 
 UCLASS()
-class DKRSTORE_API AWeapon : public AActor
+class DKRSTORE_API AShelf : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AWeapon();
+	AShelf();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shelf")
-	class AShelf * Shelf;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	class AWeapon * Weapon;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	FVector GetStartupLocation() { return StartupLocation; }
-	FRotator GetStartupRotation() { return StartupRotation; }
-
-	AShelf* GetShelf()
+	AWeapon* GetWeapon()
 	{
-		return Shelf;
+		return Weapon;
 	}
-	
-private:
-	FVector StartupLocation;
-	FRotator StartupRotation;
 	
 };
