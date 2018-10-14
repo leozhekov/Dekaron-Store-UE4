@@ -38,7 +38,11 @@ void ADkrStoreCharacter::BeginPlay()
 	Super::BeginPlay();
 	Grabber = FindComponentByClass<UGrabber>();
 	HUDControl = FindComponentByClass<UHUDControlComponent>();
-	if (!ensure(Grabber) || !ensure(HUDControl)) { return; }
+	if (!Grabber || !HUDControl) 
+	{ 
+		UE_LOG(LogTemp, Error, TEXT("Components missing from character BP"))
+		return; 
+	}
 	Grabber->SetReach(Reach);
 }
 

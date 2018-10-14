@@ -2,6 +2,7 @@
 
 #include "Weapon.h"
 #include "Shelf.h"
+#include "Engine/GameEngine.h"
 
 // Sets default values
 AWeapon::AWeapon()
@@ -16,11 +17,15 @@ void AWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	if (!Shelf) 
-	{ 
-		UE_LOG(LogTemp, Warning, TEXT("Testing %s is not attached to anything"), *(GetName()))
+	{
+		if (GEngine)
+		{
+			FString Message = FString::Printf(TEXT("%s is not attached to anything"), *(GetName()));
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, Message);
+		}
 		return; 
-	}
-	UE_LOG(LogTemp, Warning, TEXT("Testing %s is attached to %s"), *(GetName()), *(Shelf->GetName()))
+	} 
+
 
 	StartupLocation = GetActorLocation();
 	StartupRotation = GetActorRotation();

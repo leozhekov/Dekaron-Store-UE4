@@ -2,6 +2,7 @@
 
 #include "Shelf.h"
 #include "Weapon.h"
+#include "Engine/GameEngine.h"
 
 // Sets default values
 AShelf::AShelf()
@@ -17,10 +18,13 @@ void AShelf::BeginPlay()
 	Super::BeginPlay();
 	if (!Weapon) 
 	{ 
-		UE_LOG(LogTemp, Warning, TEXT("Testing %s has nothing attatched"), *(GetName()))
+		if (GEngine)
+		{
+			FString Message = FString::Printf(TEXT("%s has nothing attached"), *(GetName()));
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, Message);
+		}
 		return; 
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Testing %s has attached %s"), *(GetName()), *(Weapon->GetName()))
 }
 
 // Called every frame
