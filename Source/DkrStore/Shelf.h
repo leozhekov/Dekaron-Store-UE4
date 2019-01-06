@@ -24,12 +24,5 @@ protected:
 	class AWeapon * Weapon;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	AWeapon* GetWeapon()
-	{
-		return Weapon;
-	}
-	
+	AWeapon* GetWeapon() { return Weapon; }
 };

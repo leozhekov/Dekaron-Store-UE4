@@ -22,17 +22,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shelf")
 	class AShelf * Shelf;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+public:
 	FVector GetStartupLocation() { return StartupLocation; }
 	FRotator GetStartupRotation() { return StartupRotation; }
 
-	AShelf* GetShelf()
-	{
-		return Shelf;
-	}
+	AShelf* GetShelf() { return Shelf; }
 	
 private:
 	FVector StartupLocation;

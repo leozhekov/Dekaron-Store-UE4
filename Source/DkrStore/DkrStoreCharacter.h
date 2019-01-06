@@ -7,7 +7,8 @@
 #include "DkrStoreCharacter.generated.h"
 
 class UInputComponent;
-class Shelf;
+class AShelf;
+
 UCLASS(config=Game)
 class ADkrStoreCharacter : public ACharacter
 {
@@ -19,7 +20,6 @@ class ADkrStoreCharacter : public ACharacter
 
 public:
 	ADkrStoreCharacter();
-
 
 protected:
 
@@ -37,20 +37,22 @@ protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
 	
+	/** Used in blueprint to check for a picked actor when inspecting */
 	UFUNCTION(BlueprintCallable, Category = "Inspection")
 	AActor* PickedActor();
 
+	/** Used in blueprint to set the flag when item is being inspected */
 	UFUNCTION(BlueprintCallable, Category = "Inspection")
-	void SetItemIsBeing
-	
-	(bool IsItemBeingInspected) { ItemIsBeingInspected = IsItemBeingInspected; };
+	void SetItemIsBeingInspected(bool IsItemBeingInspected) { ItemIsBeingInspected = IsItemBeingInspected; };
 
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	bool CheckForItemPicked();
 
+	/** if CheckForItemPicked returns true call this every tick to check if close to a shelf */
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	bool CheckForShelf();
 
+	/** if CheckForItemPicked returns false call this every tick to check if there's a pick up item in range */
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	bool CheckIfItemWithinRange();
 
@@ -61,10 +63,10 @@ private:
 	float Reach = 300;
 
 	class UGrabber* Grabber = nullptr;
-
 	void Grab();
 	void Drop();
 
+	/** Helper method for linetracing */
 	FHitResult LineTraceByChannel(int Channel);
 	bool ItemIsBeingInspected;
 

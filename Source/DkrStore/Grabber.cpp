@@ -23,7 +23,6 @@ void UGrabber::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("Physics handle missing"))
 		return; 
 	}
-
 }
 
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -35,7 +34,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 		PhysicsHandle->SetTargetLocation(GetLineEndForInspect());
 		FRotator TargetRotation = PhysicsHandle->GetGrabbedComponent()->GetOwner()->GetActorRotation();
 		PhysicsHandle->SetTargetRotation(TargetRotation);
-		
 	}
 }
 
@@ -81,7 +79,6 @@ void UGrabber::Release()
 	}
 }
 
-
 bool UGrabber::IsItemPicked()
 {
 	return ItemIsPicked;
@@ -91,7 +88,6 @@ void UGrabber::SetReach(float ReachToSet)
 {
 	Reach = ReachToSet;
 }
-
 
 const FHitResult UGrabber::GetObjectInReach()
 {
@@ -104,7 +100,7 @@ const FHitResult UGrabber::GetObjectInReach()
 	}
 	else 
 	{
-		//Line-tracing for a pickup object- Collision preset "Pick Up"
+		//Line-tracing for a pickup object - Collision preset "Pick Up"
 		GetWorld()->LineTraceSingleByObjectType(HitResult, GetReachLineStart(), GetReachLineEnd(), FCollisionObjectQueryParams(ECollisionChannel::ECC_GameTraceChannel1), QueryParams);
 	}
 
@@ -119,7 +115,6 @@ FVector UGrabber::GetReachLineStart()
 	return Location;
 }
 
-
 FVector UGrabber::GetReachLineEnd()
 {
 	FVector Location;
@@ -128,7 +123,6 @@ FVector UGrabber::GetReachLineEnd()
 	return Location + (Rotation.Vector() * Reach);
 }
 
-// Used in Character Blueprint to get the actor of the picked object.
 AActor* UGrabber::GetPickedActor()
 {
 	return PhysicsHandle->GetGrabbedComponent()->GetOwner();

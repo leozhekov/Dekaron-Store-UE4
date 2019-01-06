@@ -9,18 +9,16 @@ UHUDControlComponent::UHUDControlComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
-
 
 // Called when the game starts
 void UHUDControlComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
 	if (!ensure(PickUpKeyWidget) || !ensure(DropKeyWidget) || !ensure(InspectKeyWidget) || !ensure(LeaveOnShelfKeyWidget)) { return; }
 	
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
@@ -33,19 +31,6 @@ void UHUDControlComponent::BeginPlay()
 	RemoveAll();
 }
 
-
-
-
-// Called every frame
-void UHUDControlComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
-}
-
-
-
 void UHUDControlComponent::RemoveAll()
 {
 	Remove(PickUpWidget);
@@ -53,8 +38,6 @@ void UHUDControlComponent::RemoveAll()
 	Remove(InspectWidget);
 	Remove(LeaveOnShelfWidget);
 }
-
-
 
 void UHUDControlComponent::HasItem()
 {
@@ -75,8 +58,6 @@ void UHUDControlComponent::ItemInRange()
 	Add(PickUpWidget);
 }
 
-
-
 void UHUDControlComponent::AddAllToViewport()
 {
 	PickUpWidget->AddToViewport();
@@ -84,7 +65,6 @@ void UHUDControlComponent::AddAllToViewport()
 	InspectWidget->AddToViewport();
 	LeaveOnShelfWidget->AddToViewport();
 }
-
 
 void UHUDControlComponent::Remove(UUserWidget* Widget)
 {

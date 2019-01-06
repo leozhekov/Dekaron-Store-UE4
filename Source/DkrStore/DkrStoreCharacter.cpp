@@ -96,7 +96,6 @@ void ADkrStoreCharacter::Tick(float DeltaTime)
 
 }
 
-//Used in blueprint to check for a picked actor when inspecting
 AActor* ADkrStoreCharacter::PickedActor()
 {
 	if (Grabber->IsItemPicked())
@@ -114,7 +113,6 @@ bool ADkrStoreCharacter::CheckForItemPicked()
 	return Grabber->IsItemPicked();
 }
 
-// if CheckForItemPicked returns false call this every tick to check if there's a pick up item in range
 bool ADkrStoreCharacter::CheckIfItemWithinRange()
 {
 	FHitResult HitResult = LineTraceByChannel(1);
@@ -128,8 +126,6 @@ bool ADkrStoreCharacter::CheckIfItemWithinRange()
 	}
 }
 
-
-// if CheckForItemPicked returns true call this every tick to check if close to a shelf
 bool ADkrStoreCharacter::CheckForShelf()
 {
 	FHitResult HitResult = LineTraceByChannel(2);
@@ -146,8 +142,6 @@ bool ADkrStoreCharacter::CheckForShelf()
 	}
 }
 
-
-// Helper method for linetracing
 FHitResult ADkrStoreCharacter::LineTraceByChannel(int Channel)
 {
 	FVector StartLocation;
@@ -171,8 +165,6 @@ FHitResult ADkrStoreCharacter::LineTraceByChannel(int Channel)
 	return HitResult;
 }
 
-
-
 void ADkrStoreCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f)
@@ -190,7 +182,6 @@ void ADkrStoreCharacter::MoveRight(float Value)
 		AddMovementInput(GetActorRightVector(), Value);
 	}
 }
-
 
 void ADkrStoreCharacter::Grab()
 {

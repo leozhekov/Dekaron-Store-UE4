@@ -22,21 +22,17 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
-	//Hides all widgets
+	/** Hides all widgets */
 	void RemoveAll();
 
-	//Shows drop and inspect widget
+	/** Shows drop and inspect widget */
 	void HasItem();
 
-	//Shows only leave to shelf widget
+	/** Shows only leave to shelf widget */
 	void ShelfInRange();
 
-	//shows only pickup widget
+	/** Shows only pickup widget */
 	void ItemInRange();
-
 
 private:
 

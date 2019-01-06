@@ -23,6 +23,8 @@ public:
 	void Release();
 	bool IsItemPicked();
 	void SetReach(float Reach);
+
+	/** Used in Character Blueprint to get the actor of the picked object. */
 	AActor* GetPickedActor();
 	AShelf* GetShelf() { return Shelf; }
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
