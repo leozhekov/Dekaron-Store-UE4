@@ -1,5 +1,5 @@
 # Dekaron-Store-UE4  
-  
+## This project is deprecated and no longer worked on. I have migrated all my projects over to GitLab. [Here](https://gitlab.com/LeoZhekov/DkrStore-UE4) you can find my most recently updated Dekaron-Store project.  
 This is an Unreal Engine 4.20 project with assets from my [Dekaron-Store-3D-scene](https://github.com/leozhekov/Dekaron-Store-3D-scene) Blender project.  
 It is an interactive approach to the scene. [Demo here](https://www.youtube.com/watch?v=t8DX7w0pkno)  
 Functionality implemented:  
